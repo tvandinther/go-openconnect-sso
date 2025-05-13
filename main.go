@@ -85,8 +85,6 @@ func main() {
 }
 
 func setupLogger(format, level string) *slog.Logger {
-	var handler slog.Handler
-
 	var slogLevel slog.Level
 	switch level {
 	case "debug":
@@ -108,18 +106,22 @@ func setupLogger(format, level string) *slog.Logger {
 		Level: slogLevel,
 	}
 
+	var handler slog.Handler
 	switch format {
 	case "json":
 		handler = slog.NewJSONHandler(os.Stderr, handlerOpts)
 	case "text":
+		handler = slog.NewTextHandler(os.Stderr, handlerOpts)
 	default:
 		handler = slog.NewTextHandler(os.Stderr, handlerOpts)
 	}
 
 	// Add timestamp and source info
-	logger := slog.New(handler.WithAttrs([]slog.Attr{
+	handler = handler.WithAttrs([]slog.Attr{
 		slog.String("ts", "utc"),
-	}))
+	})
+
+	logger := slog.New(handler)
 
 	return logger
 }
