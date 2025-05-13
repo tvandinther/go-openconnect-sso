@@ -12,7 +12,7 @@ import (
 	"time"
 
 	"github.com/mxschmitt/playwright-go"
-	"github.com/rustycl0ck/go-openconnect-sso/config"
+	"github.com/tvandinther/go-openconnect-sso/config"
 )
 
 var (
