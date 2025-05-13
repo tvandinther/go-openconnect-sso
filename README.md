@@ -5,7 +5,6 @@ A tool for getting login details through Two Factor Authentication for the openc
 ### Usage
 
 ```shell
-go get -u github.com/rustycl0ck/go-openconnect-sso
 go-openconnect-sso --server='https://vpn.server.myorg.com' --config ~/my-vpn-cookie/cookie.txt
 ```
 
@@ -21,7 +20,3 @@ After the file is successfully generated, you can run the following to connect t
 ```
 openconnect <any-additional-params> --verbose --config ~/my-vpn-cookie/cookie.txt https://vpn-cluster-2.server.myorg.com
 ```
-
----
-**Credits:** This tool has been inspired by (and ported to go from) https://github.com/vlaci/openconnect-sso
-
