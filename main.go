@@ -15,16 +15,15 @@ import (
 	"github.com/tvandinther/go-openconnect-sso/config"
 )
 
-var (
-	server    = flag.String("server", "", "the OpenConnect VPN server address")
-	ocFile    = flag.String("config", "", "where the OpenConnect config file will be saved")
-	logFormat = flag.String("log-format", "text", "log format (json or text)")
-	logLevel  = flag.String("log-level", "info", "log level [WARNING: 'debug' level will print openconnect login cookie to the console] (info, warn, error, debug, none)")
-)
-
 var log *slog.Logger
 
 func main() {
+	var (
+		server    = flag.String("server", "", "the OpenConnect VPN server address")
+		ocFile    = flag.String("config", "", "where the OpenConnect config file will be saved")
+		logFormat = flag.String("log-format", "text", "log format (json or text)")
+		logLevel  = flag.String("log-level", "info", "log level [WARNING: 'debug' level will print openconnect login cookie to the console] (info, warn, error, debug, none)")
+	)
 	flag.Parse()
 
 	log = setupLogger(*logFormat, *logLevel)
