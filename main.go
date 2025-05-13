@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/xml"
+	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -14,17 +15,19 @@ import (
 
 	"github.com/mxschmitt/playwright-go"
 	"github.com/rustycl0ck/go-openconnect-sso/config"
-	"gopkg.in/alecthomas/kingpin.v2"
+)
+
+var (
+	server    = flag.String("server", "", "the OpenConnect VPN server address")
+	ocFile    = flag.String("config", "", "where the OpenConnect config file will be saved")
+	logFormat = flag.String("log-format", "logfmt", "log format (json or logfmt)")
+	logLevel  = flag.String("log-level", "info", "log level [WARNING: 'debug' level will print openconnect login cookie to the console] (info, warn, error, debug, none)")
 )
 
 func main() {
 	var logger log.Logger
 
-	var server = kingpin.Flag("server", "the OpenConnect VPN server address").Short('s').Required().String()
-	var ocFile = kingpin.Flag("config", "the where OpenCOnnect config file will be saved").Short('c').Required().String()
-	var logFormat = kingpin.Flag("log-format", "log format").Default("logfmt").Enum("json", "logfmt")
-	var logLevel = kingpin.Flag("log-level", "log level [WARNING: 'debug' level will print openconnect login cookie to the console]").Default("info").Enum("info", "warn", "error", "debug", "none")
-	kingpin.Parse()
+	flag.Parse()
 
 	if *logFormat == "json" {
 		logger = log.NewJSONLogger(log.NewSyncWriter(os.Stderr))
